@@ -4,7 +4,7 @@ const { StatusCodes } = require("http-status-codes");
 const getAllCommentaryArticles = async (req, res) => {
   const { article_id } = req.params;
   const result = await db.query(
-    "SELECT * FROM commentary JOIN users ON commentary.user_id = users.user_id where article_id = $1 order by date_of_creation ASC",
+    "SELECT commentary_id, description, date_of_creation, name FROM commentary JOIN users ON commentary.user_id = users.user_id where article_id = $1 order by date_of_creation ASC",
     [article_id]
   );
   res.status(StatusCodes.CREATED).json({ items: result.rows });
